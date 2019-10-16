@@ -47,22 +47,24 @@ struct PieShape: Shape {
     }
 }
 
-struct CurrentView: View {
+struct PieView: View {
+    let direction: Direction
     @State private var radiusRatio = PieShape.innerRadiusRatio
     @State private var duration = 0.5
 
     var body: some View {
-        PieShape(direction: .northEast, ratio: self.radiusRatio)
+        PieShape(direction: direction, ratio: self.radiusRatio)
             .fill(Color.red)
             .animation(.easeInOut(duration: self.duration))
+            .onAppear { self.radiusRatio = 1.0 }
             .onTapGesture {
                 self.radiusRatio = self.radiusRatio == 1.0 ? PieShape.innerRadiusRatio : 1.0
         }
     }
 }
 
-struct CurrentView_Previews: PreviewProvider {
+struct PieView_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentView()
+        PieView(direction: .north)
     }
 }

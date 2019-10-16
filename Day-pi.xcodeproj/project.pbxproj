@@ -15,7 +15,6 @@
 		77E248C6234F4B3300514489 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77E248C5234F4B3300514489 /* Preview Assets.xcassets */; };
 		77E248C9234F4B3300514489 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77E248C7234F4B3300514489 /* LaunchScreen.storyboard */; };
 		77E248D2234F4B7600514489 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E248D1234F4B7600514489 /* Direction.swift */; };
-		77E248D4234F7AF900514489 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E248D3234F7AF900514489 /* Pie.swift */; };
 		77ECC3B823562A9A009FD234 /* PieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ECC3B723562A9A009FD234 /* PieView.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +29,6 @@
 		77E248C8234F4B3300514489 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77E248CA234F4B3300514489 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77E248D1234F4B7600514489 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
-		77E248D3234F7AF900514489 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		77ECC3B723562A9A009FD234 /* PieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,7 +95,6 @@
 		77E248D5234F7B0600514489 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				77E248D3234F7AF900514489 /* Pie.swift */,
 				77ECC3B723562A9A009FD234 /* PieView.swift */,
 			);
 			path = Views;
@@ -175,7 +172,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				77ECC3B823562A9A009FD234 /* PieView.swift in Sources */,
-				77E248D4234F7AF900514489 /* Pie.swift in Sources */,
 				77E248BD234F4B3300514489 /* AppDelegate.swift in Sources */,
 				77E248BF234F4B3300514489 /* SceneDelegate.swift in Sources */,
 				770B3E38234F970800570A9F /* Speed.swift in Sources */,
