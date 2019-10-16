@@ -29,9 +29,9 @@ struct Pie: View {
                 let startAngle = Angle(degrees: -self.direction.startArc.degree)
                 let endAngle = Angle(degrees: -self.direction.endArc.degree)
                 path.addArc(center: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-                path.addLine(to: center)
+                path.closeSubpath()
             }
-            .fill(Color.orange)
+            .fill(Color.blue)
         }
     }
 }
