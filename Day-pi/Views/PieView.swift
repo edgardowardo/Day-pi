@@ -10,16 +10,16 @@ import SwiftUI
 
 struct PieShape: Shape {
     
+    static let innermostRadiusRatio = 0.25
     static let innerRadiusRatio = 0.3
     let direction: Direction
     var ratio = 1.0
     
     func path(in rect: CGRect) -> Path {
-        let diameter: CGFloat = min(rect.width, rect.height)
-        let radius = diameter / 2
-        let radiusInner = radius * 0.25 //CGFloat(Self.innerRadiusRatio)
+        let radius = rect.size.radius
+        let radiusInner = radius * 0.25
         let radiusOuter = radius * CGFloat(ratio)
-        let center = CGPoint(x: diameter / 2 , y: diameter / 2)
+        let center = rect.size.center
         let startArc = direction.startArc
         let startAngle = Angle(degrees: -startArc.degree)
         let endArc = direction.endArc
@@ -29,13 +29,21 @@ struct PieShape: Shape {
 
         // inner arc
         path.move(to: endArc.end(of: radiusInner, from: center))
-        path.addArc(center: center, radius: radiusInner, startAngle: endAngle, endAngle: startAngle, clockwise: false)
+        path.addArc(center: center,
+                    radius: radiusInner,
+                    startAngle: endAngle,
+                    endAngle: startAngle,
+                    clockwise: false)
         
         // line rightside from inner radius
         path.addLine(to: startArc.end(of: radiusOuter, from: center))
         
         // outer arc arc counter-clockwise
-        path.addArc(center: center, radius: radiusOuter, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        path.addArc(center: center,
+                    radius: radiusOuter,
+                    startAngle: startAngle,
+                    endAngle: endAngle,
+                    clockwise: true)
         
         path.closeSubpath()
         return path
@@ -47,18 +55,34 @@ struct PieShape: Shape {
     }
 }
 
+private extension CGSize {
+    var innerDiameter: CGFloat {
+        return diameter * CGFloat(PieShape.innermostRadiusRatio)
+    }
+}
+
 struct PieView: View {
     let direction: Direction
     @State private var radiusRatio = PieShape.innerRadiusRatio
     @State private var duration = 0.5
 
     var body: some View {
-        PieShape(direction: direction, ratio: self.radiusRatio)
-            .fill(Color.red)
-            .animation(.easeInOut(duration: self.duration))
-            .onAppear { self.radiusRatio = 1.0 }
-            .onTapGesture {
-                self.radiusRatio = self.radiusRatio == 1.0 ? PieShape.innerRadiusRatio : 1.0
+        ZStack {
+            GeometryReader { geometry in
+                Circle()
+                    .path(in: .init(center: geometry.center,
+                                    size: .init(width: geometry.size.innerDiameter,
+                                                height: geometry.size.innerDiameter)))
+                    .stroke(lineWidth: 1)
+                    .foregroundColor(.gray)
+            }
+            PieShape(direction: direction, ratio: self.radiusRatio)
+                .fill(Color.red)
+                .animation(.easeInOut(duration: self.duration))
+                .onAppear { self.radiusRatio = 1.0 }
+                .onTapGesture {
+                    self.radiusRatio = self.radiusRatio == 1.0 ? PieShape.innerRadiusRatio : 1.0
+            }
         }
     }
 }

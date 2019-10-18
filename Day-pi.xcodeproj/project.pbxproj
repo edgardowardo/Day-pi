@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		770B3E38234F970800570A9F /* Speed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770B3E37234F970800570A9F /* Speed.swift */; };
+		77639C922358ABA500CF0D41 /* SwiftUI+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77639C912358ABA500CF0D41 /* SwiftUI+Extensions.swift */; };
+		77639C942358ABE000CF0D41 /* CoreGraphics+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77639C932358ABE000CF0D41 /* CoreGraphics+Extensions.swift */; };
 		77E248BD234F4B3300514489 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E248BC234F4B3300514489 /* AppDelegate.swift */; };
 		77E248BF234F4B3300514489 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E248BE234F4B3300514489 /* SceneDelegate.swift */; };
 		77E248C1234F4B3300514489 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E248C0234F4B3300514489 /* ContentView.swift */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		770B3E37234F970800570A9F /* Speed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speed.swift; sourceTree = "<group>"; };
+		77639C912358ABA500CF0D41 /* SwiftUI+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Extensions.swift"; sourceTree = "<group>"; };
+		77639C932358ABE000CF0D41 /* CoreGraphics+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Extensions.swift"; sourceTree = "<group>"; };
 		77E248B9234F4B3300514489 /* Day-pi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Day-pi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77E248BC234F4B3300514489 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77E248BE234F4B3300514489 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77639C902358AB9200CF0D41 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				77639C912358ABA500CF0D41 /* SwiftUI+Extensions.swift */,
+				77639C932358ABE000CF0D41 /* CoreGraphics+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		77E248B0234F4B3300514489 = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +75,7 @@
 		77E248BB234F4B3300514489 /* Day-pi */ = {
 			isa = PBXGroup;
 			children = (
+				77639C902358AB9200CF0D41 /* Extensions */,
 				77E248D5234F7B0600514489 /* Views */,
 				77E248D0234F4B6600514489 /* Models */,
 				77E248BC234F4B3300514489 /* AppDelegate.swift */,
@@ -174,7 +188,9 @@
 				77ECC3B823562A9A009FD234 /* PieView.swift in Sources */,
 				77E248BD234F4B3300514489 /* AppDelegate.swift in Sources */,
 				77E248BF234F4B3300514489 /* SceneDelegate.swift in Sources */,
+				77639C922358ABA500CF0D41 /* SwiftUI+Extensions.swift in Sources */,
 				770B3E38234F970800570A9F /* Speed.swift in Sources */,
+				77639C942358ABE000CF0D41 /* CoreGraphics+Extensions.swift in Sources */,
 				77E248C1234F4B3300514489 /* ContentView.swift in Sources */,
 				77E248D2234F4B7600514489 /* Direction.swift in Sources */,
 			);
