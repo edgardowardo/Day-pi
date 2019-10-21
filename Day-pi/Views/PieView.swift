@@ -66,23 +66,24 @@ struct PieView: View {
     @State private var radiusRatio = PieShape.innerRadiusRatio
     @State private var duration = 0.5
 
-    var body: some View {
-        ZStack {
-            GeometryReader { geometry in
-                Circle()
-                    .path(in: .init(center: geometry.center,
-                                    size: .init(width: geometry.size.innerDiameter,
-                                                height: geometry.size.innerDiameter)))
-                    .stroke(lineWidth: 1)
-                    .foregroundColor(.gray)
-            }
-            PieShape(direction: direction, ratio: self.radiusRatio)
-                .fill(Color.red)
-                .animation(.easeInOut(duration: self.duration))
-                .onAppear { self.radiusRatio = 1.0 }
-                .onTapGesture {
-                    self.radiusRatio = self.radiusRatio == 1.0 ? PieShape.innerRadiusRatio : 1.0
-            }
+  var body: some View {
+    GeometryReader { geometry in
+        Circle()
+            .path(in: .init(center: geometry.center,
+                            size: .init(width: geometry.size.innerDiameter,
+                                        height: geometry.size.innerDiameter)))
+            .stroke(lineWidth: 1)
+            .foregroundColor(.gray)
+        PieShape(direction: self.direction, ratio: self.radiusRatio)
+            .fill(RadialGradient(gradient: Gradient(colors: [.orange, .red]),
+                                 center: .center,
+                                 startRadius: geometry.size.innerDiameter,
+                                 endRadius: geometry.size.radius))
+            .frame(width: geometry.size.diameter,
+                   height: geometry.size.diameter)
+            .animation(.easeInOut(duration: self.duration))
+            .onAppear { self.radiusRatio = 1.0 }
+            .onTapGesture { self.radiusRatio = self.radiusRatio == 1.0 ? PieShape.innerRadiusRatio : 1.0 }
         }
     }
 }
