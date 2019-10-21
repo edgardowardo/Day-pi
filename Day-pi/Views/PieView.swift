@@ -65,31 +65,84 @@ struct PieView: View {
     let direction: Direction
     @State private var radiusRatio = PieShape.innerRadiusRatio
     @State private var duration = 0.5
+    @State private var animate = false
 
-  var body: some View {
-    GeometryReader { geometry in
-        Circle()
-            .path(in: .init(center: geometry.center,
-                            size: .init(width: geometry.size.innerDiameter,
-                                        height: geometry.size.innerDiameter)))
-            .stroke(lineWidth: 1)
-            .foregroundColor(.gray)
-        PieShape(direction: self.direction, ratio: self.radiusRatio)
-            .fill(RadialGradient(gradient: Gradient(colors: [.orange, .red]),
-                                 center: .center,
-                                 startRadius: geometry.size.innerDiameter,
-                                 endRadius: geometry.size.radius))
-            .frame(width: geometry.size.diameter,
-                   height: geometry.size.diameter)
-            .animation(.easeInOut(duration: self.duration))
-            .onAppear { self.radiusRatio = 1.0 }
-            .onTapGesture { self.radiusRatio = self.radiusRatio == 1.0 ? PieShape.innerRadiusRatio : 1.0 }
-        }
+
+    let gradient1: [UIColor] = [.blue, .green]
+    let gradient2: [UIColor] = [.red, .yellow]
+    
+    var body: some View {
+        VStack {
+            GeometryReader { geometry in
+                Circle()
+                    .path(in: .init(center: geometry.center,
+                                    size: .init(width: geometry.size.innerDiameter,
+                                                height: geometry.size.innerDiameter)))
+                    .stroke(lineWidth: 1)
+                    .foregroundColor(.gray)
+                Color
+                    .clear
+                    .frame(width: geometry.size.diameter,
+                           height: geometry.size.diameter)
+                    .overlay(Color.clear.modifier(RadialAnimatableGradient(from: self.gradient1, to: self.gradient2, pct: self.animate ? 1 : 0)))
+                    .clipShape(PieShape(direction: self.direction, ratio: self.radiusRatio))
+                    .animation(.easeInOut(duration: self.duration))
+                    .onAppear { self.radiusRatio = 1.0 }
+                    .onTapGesture { self.radiusRatio = self.radiusRatio == 1.0 ? PieShape.innerRadiusRatio : 1.0 }
+            }
+            
+            Button("Toggle Gradient") {
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    self.animate.toggle()
+                }
+            }
+        }.navigationBarTitle("Wind Times")
     }
 }
 
 struct PieView_Previews: PreviewProvider {
     static var previews: some View {
         PieView(direction: .north)
+    }
+}
+
+struct RadialAnimatableGradient: AnimatableModifier {
+    let from: [UIColor]
+    let to: [UIColor]
+    var pct: CGFloat = 0
+    
+    var animatableData: CGFloat {
+        get { pct }
+        set { pct = newValue }
+    }
+    
+    func body(content: Content) -> some View {
+        var gColors = [Color]()
+        
+        for i in 0..<from.count {
+            gColors.append(colorMixer(c1: from[i], c2: to[i], pct: pct))
+        }
+        
+        return
+            GeometryReader { geometry in
+                Rectangle()
+                .fill(RadialGradient(gradient: Gradient(colors: gColors),
+                                     center: .center,
+                                     startRadius: .zero,
+                                     endRadius: geometry.size.radius))
+        }
+    }
+    
+    // This is a very basic implementation of a color interpolation
+    // between two values.
+    func colorMixer(c1: UIColor, c2: UIColor, pct: CGFloat) -> Color {
+        guard let cc1 = c1.cgColor.components else { return Color(c1) }
+        guard let cc2 = c2.cgColor.components else { return Color(c1) }
+        
+        let r = (cc1[0] + (cc2[0] - cc1[0]) * pct)
+        let g = (cc1[1] + (cc2[1] - cc1[1]) * pct)
+        let b = (cc1[2] + (cc2[2] - cc1[2]) * pct)
+
+        return Color(red: Double(r), green: Double(g), blue: Double(b))
     }
 }

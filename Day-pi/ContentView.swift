@@ -10,8 +10,10 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        PieView(direction: .west)
-            .padding(20)
+        NavigationView {
+            PieView(direction: .west)
+                .padding(20)
+        }
     }
 }
 
