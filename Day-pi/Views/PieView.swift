@@ -67,10 +67,9 @@ struct PieView: View {
     @State private var duration = 0.5
     @State private var animate = false
 
-
     let gradient1: [UIColor] = [.blue, .green]
     let gradient2: [UIColor] = [.red, .yellow]
-    
+        
     var body: some View {
         VStack {
             GeometryReader { geometry in
@@ -86,8 +85,16 @@ struct PieView: View {
                            height: geometry.size.diameter)
                     .overlay(Color.clear.modifier(RadialAnimatableGradient(from: self.gradient1, to: self.gradient2, pct: self.animate ? 1 : 0)))
                     .clipShape(PieShape(direction: self.direction, ratio: self.radiusRatio))
-                    .animation(.easeInOut(duration: self.duration))
-                    .onAppear { self.radiusRatio = 1.0 }
+                    .onAppear {
+                        withAnimation(Animation.default) {
+                            self.radiusRatio = 1.0
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation(Animation.default.speed(0.2).repeatForever(autoreverses: true)) {
+                                self.animate.toggle()
+                            }
+                        }
+                    }
                     .onTapGesture { self.radiusRatio = self.radiusRatio == 1.0 ? PieShape.innerRadiusRatio : 1.0 }
             }
             
